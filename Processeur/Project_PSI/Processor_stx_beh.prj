@@ -1,0 +1,5 @@
+vhdl isim_temp "../RegisterFile.vhd"
+vhdl isim_temp "../Instruct_Memory.vhd"
+vhdl isim_temp "../Data_Memory.vhd"
+vhdl isim_temp "../ALU.vhd"
+vhdl isim_temp "../Processor.vhd"

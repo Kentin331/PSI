@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "secureip" -o "/home/qmouret/Documents/4A/PSI_ARCHIMAT/Project_PSI/test_processor_isim_beh.exe" -prj "/home/qmouret/Documents/4A/PSI_ARCHIMAT/Project_PSI/test_processor_beh.prj" "work.test_processor" 
