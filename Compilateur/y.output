@@ -1,0 +1,828 @@
+Grammaire
+
+    0 $accept: S $end
+
+    1 $@1: %empty
+
+    2 S: tMAIN $@1 tOP tCP tOB BODY tCB
+
+    3 BODY: DECLARATIONS INSTRUCTIONS
+
+    4 DECLARATIONS: %empty
+    5             | CV tSC DECLARATIONS
+    6             | CV tEQU tNUMBER tSC DECLARATIONS
+
+    7 CV: tCONST CONSTANTES
+    8   | tINT VARIABLES
+
+    9 CONSTANTES: tVAR
+   10           | tVAR tCOMA CONSTANTES
+
+   11 VARIABLES: tVAR
+   12          | tVAR tCOMA VARIABLES
+
+   13 INSTRUCTIONS: %empty
+
+   14 $@2: %empty
+
+   15 INSTRUCTIONS: tVAR tEQU EXP $@2 tSC INSTRUCTIONS
+
+   16 $@3: %empty
+
+   17 INSTRUCTIONS: tPRINTF tOP tVAR $@3 tCP tSC INSTRUCTIONS
+   18             | IF INSTRUCTIONS
+
+   19 $@4: %empty
+
+   20 IF: tIF tOP EXP $@4 tCP tOB BODY tCB ELSE
+
+   21 ELSE: %empty
+
+   22 $@5: %empty
+
+   23 ELSE: tELSE $@5 tOB BODY tCB
+
+   24 EXP: EXP tADD EXP
+   25    | EXP tSUB EXP
+   26    | EXP tDIV EXP
+   27    | EXP tMUL EXP
+   28    | EXP tEQU tEQU EXP
+   29    | tVAR
+   30    | tNUMBER
+   31    | tOP EXP tCP
+
+
+Terminaux, suivis des règles où ils apparaissent
+
+$end (0) 0
+error (256)
+tNUMBER (258) 6 30
+tVAR (259) 9 10 11 12 15 17 29
+tMAIN (260) 2
+tOP (261) 2 17 20 31
+tCP (262) 2 17 20 31
+tOB (263) 2 20 23
+tCB (264) 2 20 23
+tINT (265) 8
+tCONST (266) 7
+tCOMA (267) 10 12
+tSC (268) 5 6 15 17
+tPRINTF (269) 17
+tMUL (270) 27
+tDIV (271) 26
+tADD (272) 24
+tSUB (273) 25
+tEQU (274) 6 15 28
+tIF (275) 20
+tELSE (276) 23
+
+
+Non-terminaux, suivis des règles où ils apparaissent
+
+$accept (22)
+    à gauche: 0
+S (23)
+    à gauche: 2, à droite: 0
+$@1 (24)
+    à gauche: 1, à droite: 2
+BODY (25)
+    à gauche: 3, à droite: 2 20 23
+DECLARATIONS (26)
+    à gauche: 4 5 6, à droite: 3 5 6
+CV (27)
+    à gauche: 7 8, à droite: 5 6
+CONSTANTES (28)
+    à gauche: 9 10, à droite: 7 10
+VARIABLES (29)
+    à gauche: 11 12, à droite: 8 12
+INSTRUCTIONS (30)
+    à gauche: 13 15 17 18, à droite: 3 15 17 18
+$@2 (31)
+    à gauche: 14, à droite: 15
+$@3 (32)
+    à gauche: 16, à droite: 17
+IF (33)
+    à gauche: 20, à droite: 18
+$@4 (34)
+    à gauche: 19, à droite: 20
+ELSE (35)
+    à gauche: 21 23, à droite: 20
+$@5 (36)
+    à gauche: 22, à droite: 23
+EXP (37)
+    à gauche: 24 25 26 27 28 29 30 31, à droite: 15 20 24 25 26 27
+    28 31
+
+
+État 0
+
+    0 $accept: . S $end
+
+    tMAIN  décalage et aller à l'état 1
+
+    S  aller à l'état 2
+
+
+État 1
+
+    2 S: tMAIN . $@1 tOP tCP tOB BODY tCB
+
+    $défaut  réduction par utilisation de la règle 1 ($@1)
+
+    $@1  aller à l'état 3
+
+
+État 2
+
+    0 $accept: S . $end
+
+    $end  décalage et aller à l'état 4
+
+
+État 3
+
+    2 S: tMAIN $@1 . tOP tCP tOB BODY tCB
+
+    tOP  décalage et aller à l'état 5
+
+
+État 4
+
+    0 $accept: S $end .
+
+    $défaut  accepter
+
+
+État 5
+
+    2 S: tMAIN $@1 tOP . tCP tOB BODY tCB
+
+    tCP  décalage et aller à l'état 6
+
+
+État 6
+
+    2 S: tMAIN $@1 tOP tCP . tOB BODY tCB
+
+    tOB  décalage et aller à l'état 7
+
+
+État 7
+
+    2 S: tMAIN $@1 tOP tCP tOB . BODY tCB
+
+    tINT    décalage et aller à l'état 8
+    tCONST  décalage et aller à l'état 9
+
+    $défaut  réduction par utilisation de la règle 4 (DECLARATIONS)
+
+    BODY          aller à l'état 10
+    DECLARATIONS  aller à l'état 11
+    CV            aller à l'état 12
+
+
+État 8
+
+    8 CV: tINT . VARIABLES
+
+    tVAR  décalage et aller à l'état 13
+
+    VARIABLES  aller à l'état 14
+
+
+État 9
+
+    7 CV: tCONST . CONSTANTES
+
+    tVAR  décalage et aller à l'état 15
+
+    CONSTANTES  aller à l'état 16
+
+
+État 10
+
+    2 S: tMAIN $@1 tOP tCP tOB BODY . tCB
+
+    tCB  décalage et aller à l'état 17
+
+
+État 11
+
+    3 BODY: DECLARATIONS . INSTRUCTIONS
+
+    tVAR     décalage et aller à l'état 18
+    tPRINTF  décalage et aller à l'état 19
+    tIF      décalage et aller à l'état 20
+
+    $défaut  réduction par utilisation de la règle 13 (INSTRUCTIONS)
+
+    INSTRUCTIONS  aller à l'état 21
+    IF            aller à l'état 22
+
+
+État 12
+
+    5 DECLARATIONS: CV . tSC DECLARATIONS
+    6             | CV . tEQU tNUMBER tSC DECLARATIONS
+
+    tSC   décalage et aller à l'état 23
+    tEQU  décalage et aller à l'état 24
+
+
+État 13
+
+   11 VARIABLES: tVAR .
+   12          | tVAR . tCOMA VARIABLES
+
+    tCOMA  décalage et aller à l'état 25
+
+    $défaut  réduction par utilisation de la règle 11 (VARIABLES)
+
+
+État 14
+
+    8 CV: tINT VARIABLES .
+
+    $défaut  réduction par utilisation de la règle 8 (CV)
+
+
+État 15
+
+    9 CONSTANTES: tVAR .
+   10           | tVAR . tCOMA CONSTANTES
+
+    tCOMA  décalage et aller à l'état 26
+
+    $défaut  réduction par utilisation de la règle 9 (CONSTANTES)
+
+
+État 16
+
+    7 CV: tCONST CONSTANTES .
+
+    $défaut  réduction par utilisation de la règle 7 (CV)
+
+
+État 17
+
+    2 S: tMAIN $@1 tOP tCP tOB BODY tCB .
+
+    $défaut  réduction par utilisation de la règle 2 (S)
+
+
+État 18
+
+   15 INSTRUCTIONS: tVAR . tEQU EXP $@2 tSC INSTRUCTIONS
+
+    tEQU  décalage et aller à l'état 27
+
+
+État 19
+
+   17 INSTRUCTIONS: tPRINTF . tOP tVAR $@3 tCP tSC INSTRUCTIONS
+
+    tOP  décalage et aller à l'état 28
+
+
+État 20
+
+   20 IF: tIF . tOP EXP $@4 tCP tOB BODY tCB ELSE
+
+    tOP  décalage et aller à l'état 29
+
+
+État 21
+
+    3 BODY: DECLARATIONS INSTRUCTIONS .
+
+    $défaut  réduction par utilisation de la règle 3 (BODY)
+
+
+État 22
+
+   18 INSTRUCTIONS: IF . INSTRUCTIONS
+
+    tVAR     décalage et aller à l'état 18
+    tPRINTF  décalage et aller à l'état 19
+    tIF      décalage et aller à l'état 20
+
+    $défaut  réduction par utilisation de la règle 13 (INSTRUCTIONS)
+
+    INSTRUCTIONS  aller à l'état 30
+    IF            aller à l'état 22
+
+
+État 23
+
+    5 DECLARATIONS: CV tSC . DECLARATIONS
+
+    tINT    décalage et aller à l'état 8
+    tCONST  décalage et aller à l'état 9
+
+    $défaut  réduction par utilisation de la règle 4 (DECLARATIONS)
+
+    DECLARATIONS  aller à l'état 31
+    CV            aller à l'état 12
+
+
+État 24
+
+    6 DECLARATIONS: CV tEQU . tNUMBER tSC DECLARATIONS
+
+    tNUMBER  décalage et aller à l'état 32
+
+
+État 25
+
+   12 VARIABLES: tVAR tCOMA . VARIABLES
+
+    tVAR  décalage et aller à l'état 13
+
+    VARIABLES  aller à l'état 33
+
+
+État 26
+
+   10 CONSTANTES: tVAR tCOMA . CONSTANTES
+
+    tVAR  décalage et aller à l'état 15
+
+    CONSTANTES  aller à l'état 34
+
+
+État 27
+
+   15 INSTRUCTIONS: tVAR tEQU . EXP $@2 tSC INSTRUCTIONS
+
+    tNUMBER  décalage et aller à l'état 35
+    tVAR     décalage et aller à l'état 36
+    tOP      décalage et aller à l'état 37
+
+    EXP  aller à l'état 38
+
+
+État 28
+
+   17 INSTRUCTIONS: tPRINTF tOP . tVAR $@3 tCP tSC INSTRUCTIONS
+
+    tVAR  décalage et aller à l'état 39
+
+
+État 29
+
+   20 IF: tIF tOP . EXP $@4 tCP tOB BODY tCB ELSE
+
+    tNUMBER  décalage et aller à l'état 35
+    tVAR     décalage et aller à l'état 36
+    tOP      décalage et aller à l'état 37
+
+    EXP  aller à l'état 40
+
+
+État 30
+
+   18 INSTRUCTIONS: IF INSTRUCTIONS .
+
+    $défaut  réduction par utilisation de la règle 18 (INSTRUCTIONS)
+
+
+État 31
+
+    5 DECLARATIONS: CV tSC DECLARATIONS .
+
+    $défaut  réduction par utilisation de la règle 5 (DECLARATIONS)
+
+
+État 32
+
+    6 DECLARATIONS: CV tEQU tNUMBER . tSC DECLARATIONS
+
+    tSC  décalage et aller à l'état 41
+
+
+État 33
+
+   12 VARIABLES: tVAR tCOMA VARIABLES .
+
+    $défaut  réduction par utilisation de la règle 12 (VARIABLES)
+
+
+État 34
+
+   10 CONSTANTES: tVAR tCOMA CONSTANTES .
+
+    $défaut  réduction par utilisation de la règle 10 (CONSTANTES)
+
+
+État 35
+
+   30 EXP: tNUMBER .
+
+    $défaut  réduction par utilisation de la règle 30 (EXP)
+
+
+État 36
+
+   29 EXP: tVAR .
+
+    $défaut  réduction par utilisation de la règle 29 (EXP)
+
+
+État 37
+
+   31 EXP: tOP . EXP tCP
+
+    tNUMBER  décalage et aller à l'état 35
+    tVAR     décalage et aller à l'état 36
+    tOP      décalage et aller à l'état 37
+
+    EXP  aller à l'état 42
+
+
+État 38
+
+   15 INSTRUCTIONS: tVAR tEQU EXP . $@2 tSC INSTRUCTIONS
+   24 EXP: EXP . tADD EXP
+   25    | EXP . tSUB EXP
+   26    | EXP . tDIV EXP
+   27    | EXP . tMUL EXP
+   28    | EXP . tEQU tEQU EXP
+
+    tMUL  décalage et aller à l'état 43
+    tDIV  décalage et aller à l'état 44
+    tADD  décalage et aller à l'état 45
+    tSUB  décalage et aller à l'état 46
+    tEQU  décalage et aller à l'état 47
+
+    $défaut  réduction par utilisation de la règle 14 ($@2)
+
+    $@2  aller à l'état 48
+
+
+État 39
+
+   17 INSTRUCTIONS: tPRINTF tOP tVAR . $@3 tCP tSC INSTRUCTIONS
+
+    $défaut  réduction par utilisation de la règle 16 ($@3)
+
+    $@3  aller à l'état 49
+
+
+État 40
+
+   20 IF: tIF tOP EXP . $@4 tCP tOB BODY tCB ELSE
+   24 EXP: EXP . tADD EXP
+   25    | EXP . tSUB EXP
+   26    | EXP . tDIV EXP
+   27    | EXP . tMUL EXP
+   28    | EXP . tEQU tEQU EXP
+
+    tMUL  décalage et aller à l'état 43
+    tDIV  décalage et aller à l'état 44
+    tADD  décalage et aller à l'état 45
+    tSUB  décalage et aller à l'état 46
+    tEQU  décalage et aller à l'état 47
+
+    $défaut  réduction par utilisation de la règle 19 ($@4)
+
+    $@4  aller à l'état 50
+
+
+État 41
+
+    6 DECLARATIONS: CV tEQU tNUMBER tSC . DECLARATIONS
+
+    tINT    décalage et aller à l'état 8
+    tCONST  décalage et aller à l'état 9
+
+    $défaut  réduction par utilisation de la règle 4 (DECLARATIONS)
+
+    DECLARATIONS  aller à l'état 51
+    CV            aller à l'état 12
+
+
+État 42
+
+   24 EXP: EXP . tADD EXP
+   25    | EXP . tSUB EXP
+   26    | EXP . tDIV EXP
+   27    | EXP . tMUL EXP
+   28    | EXP . tEQU tEQU EXP
+   31    | tOP EXP . tCP
+
+    tCP   décalage et aller à l'état 52
+    tMUL  décalage et aller à l'état 43
+    tDIV  décalage et aller à l'état 44
+    tADD  décalage et aller à l'état 45
+    tSUB  décalage et aller à l'état 46
+    tEQU  décalage et aller à l'état 47
+
+
+État 43
+
+   27 EXP: EXP tMUL . EXP
+
+    tNUMBER  décalage et aller à l'état 35
+    tVAR     décalage et aller à l'état 36
+    tOP      décalage et aller à l'état 37
+
+    EXP  aller à l'état 53
+
+
+État 44
+
+   26 EXP: EXP tDIV . EXP
+
+    tNUMBER  décalage et aller à l'état 35
+    tVAR     décalage et aller à l'état 36
+    tOP      décalage et aller à l'état 37
+
+    EXP  aller à l'état 54
+
+
+État 45
+
+   24 EXP: EXP tADD . EXP
+
+    tNUMBER  décalage et aller à l'état 35
+    tVAR     décalage et aller à l'état 36
+    tOP      décalage et aller à l'état 37
+
+    EXP  aller à l'état 55
+
+
+État 46
+
+   25 EXP: EXP tSUB . EXP
+
+    tNUMBER  décalage et aller à l'état 35
+    tVAR     décalage et aller à l'état 36
+    tOP      décalage et aller à l'état 37
+
+    EXP  aller à l'état 56
+
+
+État 47
+
+   28 EXP: EXP tEQU . tEQU EXP
+
+    tEQU  décalage et aller à l'état 57
+
+
+État 48
+
+   15 INSTRUCTIONS: tVAR tEQU EXP $@2 . tSC INSTRUCTIONS
+
+    tSC  décalage et aller à l'état 58
+
+
+État 49
+
+   17 INSTRUCTIONS: tPRINTF tOP tVAR $@3 . tCP tSC INSTRUCTIONS
+
+    tCP  décalage et aller à l'état 59
+
+
+État 50
+
+   20 IF: tIF tOP EXP $@4 . tCP tOB BODY tCB ELSE
+
+    tCP  décalage et aller à l'état 60
+
+
+État 51
+
+    6 DECLARATIONS: CV tEQU tNUMBER tSC DECLARATIONS .
+
+    $défaut  réduction par utilisation de la règle 6 (DECLARATIONS)
+
+
+État 52
+
+   31 EXP: tOP EXP tCP .
+
+    $défaut  réduction par utilisation de la règle 31 (EXP)
+
+
+État 53
+
+   24 EXP: EXP . tADD EXP
+   25    | EXP . tSUB EXP
+   26    | EXP . tDIV EXP
+   27    | EXP . tMUL EXP
+   27    | EXP tMUL EXP .
+   28    | EXP . tEQU tEQU EXP
+
+    tEQU  décalage et aller à l'état 47
+
+    $défaut  réduction par utilisation de la règle 27 (EXP)
+
+
+État 54
+
+   24 EXP: EXP . tADD EXP
+   25    | EXP . tSUB EXP
+   26    | EXP . tDIV EXP
+   26    | EXP tDIV EXP .
+   27    | EXP . tMUL EXP
+   28    | EXP . tEQU tEQU EXP
+
+    tEQU  décalage et aller à l'état 47
+
+    $défaut  réduction par utilisation de la règle 26 (EXP)
+
+
+État 55
+
+   24 EXP: EXP . tADD EXP
+   24    | EXP tADD EXP .
+   25    | EXP . tSUB EXP
+   26    | EXP . tDIV EXP
+   27    | EXP . tMUL EXP
+   28    | EXP . tEQU tEQU EXP
+
+    tMUL  décalage et aller à l'état 43
+    tDIV  décalage et aller à l'état 44
+    tEQU  décalage et aller à l'état 47
+
+    $défaut  réduction par utilisation de la règle 24 (EXP)
+
+
+État 56
+
+   24 EXP: EXP . tADD EXP
+   25    | EXP . tSUB EXP
+   25    | EXP tSUB EXP .
+   26    | EXP . tDIV EXP
+   27    | EXP . tMUL EXP
+   28    | EXP . tEQU tEQU EXP
+
+    tMUL  décalage et aller à l'état 43
+    tDIV  décalage et aller à l'état 44
+    tEQU  décalage et aller à l'état 47
+
+    $défaut  réduction par utilisation de la règle 25 (EXP)
+
+
+État 57
+
+   28 EXP: EXP tEQU tEQU . EXP
+
+    tNUMBER  décalage et aller à l'état 35
+    tVAR     décalage et aller à l'état 36
+    tOP      décalage et aller à l'état 37
+
+    EXP  aller à l'état 61
+
+
+État 58
+
+   15 INSTRUCTIONS: tVAR tEQU EXP $@2 tSC . INSTRUCTIONS
+
+    tVAR     décalage et aller à l'état 18
+    tPRINTF  décalage et aller à l'état 19
+    tIF      décalage et aller à l'état 20
+
+    $défaut  réduction par utilisation de la règle 13 (INSTRUCTIONS)
+
+    INSTRUCTIONS  aller à l'état 62
+    IF            aller à l'état 22
+
+
+État 59
+
+   17 INSTRUCTIONS: tPRINTF tOP tVAR $@3 tCP . tSC INSTRUCTIONS
+
+    tSC  décalage et aller à l'état 63
+
+
+État 60
+
+   20 IF: tIF tOP EXP $@4 tCP . tOB BODY tCB ELSE
+
+    tOB  décalage et aller à l'état 64
+
+
+État 61
+
+   24 EXP: EXP . tADD EXP
+   25    | EXP . tSUB EXP
+   26    | EXP . tDIV EXP
+   27    | EXP . tMUL EXP
+   28    | EXP . tEQU tEQU EXP
+   28    | EXP tEQU tEQU EXP .
+
+    tEQU  décalage et aller à l'état 47
+
+    $défaut  réduction par utilisation de la règle 28 (EXP)
+
+
+État 62
+
+   15 INSTRUCTIONS: tVAR tEQU EXP $@2 tSC INSTRUCTIONS .
+
+    $défaut  réduction par utilisation de la règle 15 (INSTRUCTIONS)
+
+
+État 63
+
+   17 INSTRUCTIONS: tPRINTF tOP tVAR $@3 tCP tSC . INSTRUCTIONS
+
+    tVAR     décalage et aller à l'état 18
+    tPRINTF  décalage et aller à l'état 19
+    tIF      décalage et aller à l'état 20
+
+    $défaut  réduction par utilisation de la règle 13 (INSTRUCTIONS)
+
+    INSTRUCTIONS  aller à l'état 65
+    IF            aller à l'état 22
+
+
+État 64
+
+   20 IF: tIF tOP EXP $@4 tCP tOB . BODY tCB ELSE
+
+    tINT    décalage et aller à l'état 8
+    tCONST  décalage et aller à l'état 9
+
+    $défaut  réduction par utilisation de la règle 4 (DECLARATIONS)
+
+    BODY          aller à l'état 66
+    DECLARATIONS  aller à l'état 11
+    CV            aller à l'état 12
+
+
+État 65
+
+   17 INSTRUCTIONS: tPRINTF tOP tVAR $@3 tCP tSC INSTRUCTIONS .
+
+    $défaut  réduction par utilisation de la règle 17 (INSTRUCTIONS)
+
+
+État 66
+
+   20 IF: tIF tOP EXP $@4 tCP tOB BODY . tCB ELSE
+
+    tCB  décalage et aller à l'état 67
+
+
+État 67
+
+   20 IF: tIF tOP EXP $@4 tCP tOB BODY tCB . ELSE
+
+    tELSE  décalage et aller à l'état 68
+
+    $défaut  réduction par utilisation de la règle 21 (ELSE)
+
+    ELSE  aller à l'état 69
+
+
+État 68
+
+   23 ELSE: tELSE . $@5 tOB BODY tCB
+
+    $défaut  réduction par utilisation de la règle 22 ($@5)
+
+    $@5  aller à l'état 70
+
+
+État 69
+
+   20 IF: tIF tOP EXP $@4 tCP tOB BODY tCB ELSE .
+
+    $défaut  réduction par utilisation de la règle 20 (IF)
+
+
+État 70
+
+   23 ELSE: tELSE $@5 . tOB BODY tCB
+
+    tOB  décalage et aller à l'état 71
+
+
+État 71
+
+   23 ELSE: tELSE $@5 tOB . BODY tCB
+
+    tINT    décalage et aller à l'état 8
+    tCONST  décalage et aller à l'état 9
+
+    $défaut  réduction par utilisation de la règle 4 (DECLARATIONS)
+
+    BODY          aller à l'état 72
+    DECLARATIONS  aller à l'état 11
+    CV            aller à l'état 12
+
+
+État 72
+
+   23 ELSE: tELSE $@5 tOB BODY . tCB
+
+    tCB  décalage et aller à l'état 73
+
+
+État 73
+
+   23 ELSE: tELSE $@5 tOB BODY tCB .
+
+    $défaut  réduction par utilisation de la règle 23 (ELSE)
