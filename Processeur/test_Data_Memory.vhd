@@ -87,7 +87,7 @@ BEGIN
    
 
   -- insert stimulus here 
-  RST <= '0', '1' after 10 ns ;-- RESET INITIAL
+  RST <= '0', '1' after 20 ns ;-- RESET INITIAL
   ADDRESS <= "00000001", "00000010" after 50 ns, "00000001" after 150ns;
   DATA_IN <= "00001111", "11100010" after 50 ns;
   RW <= '0', '1' after 100 ns;
