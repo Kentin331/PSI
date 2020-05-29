@@ -14,9 +14,15 @@ main()
     printf ( r );
 
     if(r==2){
-        printf(i);
+        if(i==3){
+            printf(i);
+        }
+        k = 2;
     } else {
-         k = 2;
+         if(l==0){
+            l = k-1;
+         }
+         i = 3;
     }
     if(1){
        i = i+1;

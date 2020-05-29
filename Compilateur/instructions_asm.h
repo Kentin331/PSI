@@ -18,4 +18,3 @@ void printf_inst(int r);
 void end_if_inst();
 void jmpf_inst();
 void jmp_inst();
-void remove_if();
