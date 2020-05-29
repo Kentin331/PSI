@@ -125,8 +125,8 @@ void affichage_inst(){
             if_imbrique++;
             while(strcmp(instructions[l].inst,"END CMP\n")!= 0 && strcmp(instructions[l].inst,"JMP\n")!=0 || if_imbrique!=0){
                 l++;
-                if (strcmp(instructions[l].inst,"JMPF\n") == 0) { printf("%d  %d", l, if_imbrique); if_imbrique++;};
-                if (strcmp(instructions[l].inst,"END CMP\n") == 0 || strcmp(instructions[l].inst,"JMP\n") == 0) { printf("%d  %d", l, if_imbrique); if_imbrique--;};
+                if (strcmp(instructions[l].inst,"JMPF\n") == 0) if_imbrique++;
+                if (strcmp(instructions[l].inst,"END CMP\n") == 0 || strcmp(instructions[l].inst,"JMP\n") == 0) if_imbrique--;
             }
             char * instruction = malloc(sizeof(char)*100);
             if(strcmp(instructions[l].inst,"JMP\n") == 0) sprintf(instruction, "JMPF L%d\n",l+1);
